@@ -1,8 +1,13 @@
 import { Hono } from "hono";
 import { AuthController } from "./auth.controller.js";
+import { authMiddleware } from "../../shared/middleware/auth.js";
 
-const authRoutes = new Hono();
+const auth = new Hono();
 
-authRoutes.post('/register', AuthController.register);
+auth.post('/register', AuthController.register);
+auth.post('/login', AuthController.login);
+auth.post('/logout', authMiddleware, AuthController.logout);
+auth.post('/forget-password', AuthController.forgetPassword);
+auth.post('/reset-password', AuthController.resetPassword);
 
-export default authRoutes;
+export default auth;
