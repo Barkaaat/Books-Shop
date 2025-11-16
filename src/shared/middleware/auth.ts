@@ -15,7 +15,7 @@ export const authMiddleware = async (c: Context, next: Next) => {
         const stored = await redis.get(`auth:${decoded.id}`);
 
         if (!stored || stored !== token) {
-        return c.json({ error: "Invalid or expired token" }, 401);
+            return c.json({ error: "Invalid or expired token" }, 401);
         }
 
         c.set("user", decoded);

@@ -1,4 +1,4 @@
-import { registerSchema, loginSchema } from "./auth.schema.js";
+import { registerSchema, loginSchema, changePasswordSchema } from "./auth.schema.js";
 import { AuthService } from "./auth.service.js";
 import type { Context } from "hono";
 
@@ -52,12 +52,12 @@ export const AuthController = {
     
     logout: async (c: Context) => {
         try {
-            const user = c.get("user"); // from authMiddleware
+            const user = c.get("user");
 
             const result = await AuthService.logout(user.id);
 
             if (result.error) {
-            return c.json({ error: result.error }, result.status as any);
+                return c.json({ error: result.error }, result.status as any);
             }
 
             return c.json({ message: "Logged out successfully" }, 200);
@@ -92,6 +92,34 @@ export const AuthController = {
             }
 
             return c.json({ message: "Password reset successfully" }, 200);
+        } catch (err) {
+            return c.json({ error: "Internal server error" }, 500);
+        }
+    },
+
+    changePassword: async (c: Context) => {
+        try {
+            const user = c.get("user");
+            const body = await c.req.json();
+
+            const parsed = changePasswordSchema.safeParse(body);
+            if (!parsed.success) {
+                return c.json({ error: parsed.error.issues }, 400);
+            }
+
+            const { oldPassword, newPassword } = parsed.data;
+
+            const result = await AuthService.changePassword(
+                user.id,
+                oldPassword,
+                newPassword
+            );
+
+            if (result.error) {
+                return c.json({ error: result.error }, result.status as any);
+            }
+
+            return c.json({ message: result.message }, 200);
         } catch (err) {
             return c.json({ error: "Internal server error" }, 500);
         }

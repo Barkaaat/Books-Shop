@@ -101,4 +101,32 @@ export const AuthService = {
 
         return { status: 200 };
     },
+    
+    changePassword: async (id: string, oldPassword: string, newPassword: string) => {
+        const found = await db.select().from(users).where(eq(users.id, id));
+        
+        if (found.length === 0) {
+            return { error: "User not found", status: 404 };
+        }
+
+        const user = found[0];
+
+        const isMatch = await comparePassword(oldPassword, user.password);
+
+        if (!isMatch) {
+            return { error: "Old password is incorrect", status: 400 };
+        }
+
+        const hashed = await hashPassword(newPassword);
+
+        await db
+            .update(users)
+            .set({ password: hashed })
+            .where(eq(users.id, id));
+
+        // OPTIONAL: Invalidate old sessions
+        await AuthService.logout(id);
+
+        return { message: "Password updated successfully", status: 200 };
+    },
 };
