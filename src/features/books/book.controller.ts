@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { createBookSchema } from "./book.schema.js";
+import { createBookSchema, updateBookSchema } from "./book.schema.js";
 import { BookService } from "./book.service.js";
 
 export class BookController {
@@ -96,4 +96,67 @@ export class BookController {
         }
     }
 
+    static async getBookById(c: Context) {
+        try {
+            const id = c.req.param("id");
+
+            if (!id) {
+                return c.json({ error: "Book ID is required" }, 400);
+            }
+
+            const result = await BookService.getBookById(id);
+
+            if (result.error) {
+                return c.json({ error: result.error }, result.status as any);
+            }
+
+            return c.json(result.data, 200);
+        } catch (err) {
+            console.error(err);
+            return c.json({ error: "Failed to fetch book" }, 500);
+        }
+    }
+
+    static async updateBook(c: Context) {
+        try {
+            const user = c.get("user");
+            const id = c.req.param("id");
+
+            const body = await c.req.json();
+            const parsed = updateBookSchema.safeParse(body);
+
+            if (!parsed.success) {
+                return c.json({ error: parsed.error.flatten() }, 400);
+            }
+
+            const result = await BookService.updateBook(user.id, id, parsed.data);
+
+            if (result.error) {
+                return c.json({ error: result.error }, result.status as any);
+            }
+
+            return c.json(result.data, 200);
+        } catch (err) {
+            console.error(err);
+            return c.json({ error: "Failed to update book" }, 500);
+        }
+    }
+
+    static async deleteBook(c: Context) {
+        try {
+            const user = c.get("user");
+            const id = c.req.param("id");
+
+            const result = await BookService.deleteBook(user.id, id);
+
+            if (result.error) {
+                return c.json({ error: result.error }, result.status as any);
+            }
+
+            return c.json({ message: result.data }, 200);
+        } catch (err) {
+            console.error(err);
+            return c.json({ error: "Failed to delete book" }, 500);
+        }
+    }
 }

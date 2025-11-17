@@ -152,4 +152,71 @@ export class BookService {
         };
     }
 
+    static async getBookById(id: string) {
+        const found = await db
+            .select()
+            .from(books)
+            .where(eq(books.id, id));
+
+        if (found.length === 0) {
+            return { error: "Book not found", status: 404 };
+        }
+
+        return { data: found[0], status: 200 };
+    }
+
+    static async updateBook(authorId: string, id: string, data: {
+        title?: string;
+        price?: number;
+        thumbnail?: string;
+        categoryId?: string;
+    }) {
+        const found = await db
+            .select()
+            .from(books)
+            .where(eq(books.id, id));
+
+        if (found.length === 0) {
+            return { error: "Book not found", status: 404 };
+        }
+
+        if (authorId !== found[0].authorId) {
+            return { error: "Only Author can edit book", status: 401 };
+        }
+
+        const updated = await db
+            .update(books)
+            .set({
+                ...(data.title !== undefined && { title: data.title }),
+                ...(data.price !== undefined && { price: data.price.toString() }),
+                ...(data.thumbnail !== undefined && { thumbnail: data.thumbnail }),
+                ...(data.categoryId !== undefined && { categoryId: data.categoryId }),
+                updateddAt: new Date()
+            })
+            .where(eq(books.id, id))
+            .returning();
+
+        return { data: updated[0], status: 200 };
+    }
+
+    static async deleteBook(authorId: string, id: string) {
+        const found = await db
+            .select()
+            .from(books)
+            .where(eq(books.id, id));
+
+        if (found.length === 0) {
+            return { error: "Book not found", status: 404 };
+        }
+
+        if (found[0].authorId !== authorId) {
+            return { error: "Only Author can delete book", status: 401 };
+        }
+
+        await db
+            .delete(books)
+            .where(eq(books.id, id));
+
+        return { data: `Book with id ${id} deleted successfully`, status: 200 };
+    }
 }
