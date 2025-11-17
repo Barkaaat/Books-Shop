@@ -15,6 +15,20 @@
       "when": 1763244393337,
       "tag": "0001_old_timeslip",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1763330849833,
+      "tag": "0002_workable_colossus",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1763382990956,
+      "tag": "0003_brainy_ben_grimm",
+      "breakpoints": true
     }
   ]
 }

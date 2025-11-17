@@ -46,6 +46,7 @@ export const AuthController = {
 
             return c.json({ message: "Login successful", user: result.data }, 200);
         } catch (err) {
+            console.error(err);
             return c.json({ error: "Internal server error" }, 500);
         }
     },
