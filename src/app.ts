@@ -6,6 +6,7 @@ import authRouter from './features/auth/auth.routs.js';
 import userRouter from './features/users/user.routs.js'
 import bookRouter from './features/books/book.routs.js'
 import tagsRouter from './features/tags/tag.routs.js';
+import categoryRouter from './features/categories/category.routs.js';
 
 const app = new Hono();
 
@@ -13,6 +14,7 @@ app.route('/auth', authRouter);
 app.route('/user', userRouter);
 app.route('/book', bookRouter);
 app.route('/tags', tagsRouter);
+app.route('/categories', categoryRouter);
 
 await ensureDatabaseExists();
 serve({
