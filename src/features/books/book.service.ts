@@ -1,7 +1,10 @@
 import { db } from "../../config/db.js";
 import { books } from "../../db/schema/books.js";
-import { eq, inArray, like, asc, desc, and, gte, lte, count } from "drizzle-orm";
+import { users } from "../../db/schema/users.js";
+import { tags } from "../../db/schema/tags.js";
+import { categories } from "../../db/schema/categories.js";
 import { bookTags } from "../../db/schema/tags.js";
+import { eq, like, asc, desc, and, gte, lte, count, sql } from "drizzle-orm";
 
 export class BookService {
     static async createBook(data: {
@@ -25,7 +28,6 @@ export class BookService {
 
         const book = inserted[0];
 
-        // Insert tags if provided
         if (data.tags && data.tags.length > 0) {
             const tagLinks = data.tags.map(tagId => ({
                 bookId: book.id,
@@ -72,12 +74,38 @@ export class BookService {
             sort === "desc" ? desc(column) : asc(column);
 
         const data = await db
-            .select()
-            .from(books)
-            .where(whereConditions.length ? and(...whereConditions) : undefined)
-            .orderBy(orderBy)
-            .limit(limit)
-            .offset(offset);
+        .select({
+            id: books.id,
+            title: books.title,
+            price: books.price,
+            thumbnail: books.thumbnail,
+            craeteAt: books.createdAt,
+            updatedAt: books.updatedAt,
+
+            // Author
+            authorId: books.authorId,
+            author: users.fullName,
+
+            // Category
+            category: categories.category,
+
+            // Tags
+            tags: sql`COALESCE(array_agg(${tags.tag}), '{}')`.as("tags"),
+        })
+        .from(books)
+        .leftJoin(users, eq(books.authorId, users.id))
+        .leftJoin(categories, eq(books.categoryId, categories.id))
+        .leftJoin(bookTags, eq(books.id, bookTags.bookId))
+        .leftJoin(tags, eq(bookTags.tagId, tags.id))
+        .where(whereConditions.length ? and(...whereConditions) : undefined)
+        .groupBy(
+            books.id,
+            users.fullName,
+            categories.category
+        )
+        .orderBy(orderBy)
+        .limit(limit)
+        .offset(offset);
 
         const total = await db
             .select({ count: count() })
@@ -129,12 +157,38 @@ export class BookService {
             sort === "desc" ? desc(column) : asc(column);
 
         const data = await db
-            .select()
-            .from(books)
-            .where(whereConditions.length ? and(...whereConditions) : undefined)
-            .orderBy(orderBy)
-            .limit(limit)
-            .offset(offset);
+        .select({
+            id: books.id,
+            title: books.title,
+            price: books.price,
+            thumbnail: books.thumbnail,
+            craeteAt: books.createdAt,
+            updatedAt: books.updatedAt,
+
+            // Author
+            authorId: books.authorId,
+            author: users.fullName,
+
+            // Category
+            category: categories.category,
+
+            // Tags
+            tags: sql`COALESCE(array_agg(${tags.tag}), '{}')`.as("tags"),
+        })
+        .from(books)
+        .leftJoin(users, eq(books.authorId, users.id))
+        .leftJoin(categories, eq(books.categoryId, categories.id))
+        .leftJoin(bookTags, eq(books.id, bookTags.bookId))
+        .leftJoin(tags, eq(bookTags.tagId, tags.id))
+        .where(whereConditions.length ? and(...whereConditions) : undefined)
+        .groupBy(
+            books.id,
+            users.fullName,
+            categories.category
+        )
+        .orderBy(orderBy)
+        .limit(limit)
+        .offset(offset);
 
         const total = await db
             .select({ count: count() })
@@ -191,7 +245,7 @@ export class BookService {
                 ...(data.price !== undefined && { price: data.price.toString() }),
                 ...(data.thumbnail !== undefined && { thumbnail: data.thumbnail }),
                 ...(data.categoryId !== undefined && { categoryId: data.categoryId }),
-                updateddAt: new Date()
+                updatedAt: new Date()
             })
             .where(eq(books.id, id))
             .returning();

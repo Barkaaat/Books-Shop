@@ -5,8 +5,8 @@ import { hashPassword, comparePassword } from "../../shared/utils/password.js";
 import { createToken } from "../../shared/utils/jwt.js";
 import { eq, or } from "drizzle-orm";
 
-export const AuthService = {
-    register: async (username: string, email: string, password: string, fullName: string) => {
+export class AuthService {
+    static async register(username: string, email: string, password: string, fullName: string) {
         const existing = await db
             .select()
             .from(users)
@@ -29,17 +29,18 @@ export const AuthService = {
             });
 
         return { data: newUser[0], status: 201 };
-    },
+    }
 
-    login: async (usernameOrEmail: string, password: string) => {
+    static async login(usernameOrEmail: string, password: string) {
         const found = await db
             .select()
             .from(users)
             .where(
-            or(
-                eq(users.email, usernameOrEmail),
-                eq(users.username, usernameOrEmail)
-            ));
+                or(
+                    eq(users.email, usernameOrEmail),
+                    eq(users.username, usernameOrEmail)
+                )
+            );
 
         if (found.length === 0) {
             return { error: "Invalid username/email or password", status: 401 };
@@ -58,9 +59,9 @@ export const AuthService = {
         await redis.setEx(`auth:${user.id}`, 2073600, token);
 
         return { data: { ...safeUser, token }, status: 200 };
-    },
+    }
 
-    logout: async (userId: string) => {
+    static async logout(userId: string) {
         const deleted = await redis.del(`auth:${userId}`);
 
         if (deleted === 0) {
@@ -68,9 +69,9 @@ export const AuthService = {
         }
 
         return { status: 200 };
-    },
+    }
 
-    forgetPassword: async (email: string) => {
+    static async forgetPassword(email: string) {
         const found = await db.select().from(users).where(eq(users.email, email));
         if (found.length === 0) {
             return { error: "Email not found", status: 404 };
@@ -79,9 +80,9 @@ export const AuthService = {
         await redis.setEx(`otp:${email}`, 300, OTP);
 
         return { status: 200 };
-    },
+    }
 
-    resetPassword: async (email: string, otp: string, newPassword: string) => {
+    static async resetPassword(email: string, otp: string, newPassword: string) {
         const storedOtp = await redis.get(`otp:${email}`);
 
         if (!storedOtp) {
@@ -91,18 +92,20 @@ export const AuthService = {
         if (storedOtp !== otp) {
             return { error: "Invalid OTP", status: 401 };
         }
+
         const hashed = await hashPassword(newPassword);
 
-        await db.update(users)
+        await db
+            .update(users)
             .set({ password: hashed })
             .where(eq(users.email, email));
 
         await redis.del(`otp:${email}`);
 
         return { status: 200 };
-    },
-    
-    changePassword: async (id: string, oldPassword: string, newPassword: string) => {
+    }
+
+    static async changePassword(id: string, oldPassword: string, newPassword: string) {
         const found = await db.select().from(users).where(eq(users.id, id));
         
         if (found.length === 0) {
@@ -124,9 +127,9 @@ export const AuthService = {
             .set({ password: hashed })
             .where(eq(users.id, id));
 
-        // OPTIONAL: Invalidate old sessions
+        // Invalidate old sessions
         await AuthService.logout(id);
 
         return { message: "Password updated successfully", status: 200 };
-    },
-};
+    }
+}

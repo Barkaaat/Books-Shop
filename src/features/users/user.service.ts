@@ -1,9 +1,9 @@
 import { db } from "../../config/db.js";
 import { users } from "../../db/schema/users.js";
-import { eq, or } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
-export const UserService = {
-    getUserById: async (id: string) => {
+export class UserService {
+    static async getUserById(id: string) {
         const user = await db
             .select({
                 username: users.username,
@@ -14,12 +14,12 @@ export const UserService = {
             })
             .from(users)
             .where(eq(users.id, id));
-        
+
         console.log(user);
         return user[0];
-    },
+    }
 
-    updateUser: async (id: string, data: any) => {
+    static async updateUser(id: string, data: any) {
         const updated = await db
             .update(users)
             .set(data)
@@ -34,7 +34,5 @@ export const UserService = {
         if (!updated.length) return null;
 
         return updated[0];
-    },
-
-
+    }
 }

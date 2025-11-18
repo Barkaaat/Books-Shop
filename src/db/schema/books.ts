@@ -8,5 +8,5 @@ export const books = pgTable('books', {
     authorId: uuid('author_id').notNull(),
     categoryId: uuid('category_id').notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
-    updateddAt: timestamp("updated_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

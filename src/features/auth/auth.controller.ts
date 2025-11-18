@@ -2,8 +2,8 @@ import { registerSchema, loginSchema, changePasswordSchema } from "./auth.schema
 import { AuthService } from "./auth.service.js";
 import type { Context } from "hono";
 
-export const AuthController = {
-    register: async (c: Context) => {
+export class AuthController {
+    static async register(c: Context) {
         try {
             const body = await c.req.json();
 
@@ -25,9 +25,9 @@ export const AuthController = {
             console.error(err);
             return c.json({ error: "Internal server error" }, 500);
         }
-    },
-    
-    login: async (c: Context) => {
+    }
+
+    static async login(c: Context) {
         try {
             const body = await c.req.json();
             
@@ -49,9 +49,9 @@ export const AuthController = {
             console.error(err);
             return c.json({ error: "Internal server error" }, 500);
         }
-    },
-    
-    logout: async (c: Context) => {
+    }
+
+    static async logout(c: Context) {
         try {
             const user = c.get("user");
 
@@ -66,9 +66,9 @@ export const AuthController = {
             console.error(err);
             return c.json({ error: "Internal server error" }, 500);
         }
-    },
+    }
 
-    forgetPassword: async (c: Context) => {
+    static async forgetPassword(c: Context) {
         try {
             const { email } = await c.req.json();
             const result = await AuthService.forgetPassword(email);
@@ -81,9 +81,9 @@ export const AuthController = {
         } catch (err) {
             return c.json({ error: "Internal server error" }, 500);
         }
-    },
+    }
 
-    resetPassword: async (c: Context) => {
+    static async resetPassword(c: Context) {
         try {
             const { email, otp, newPassword } = await c.req.json();
             const result = await AuthService.resetPassword(email, otp, newPassword);
@@ -96,9 +96,9 @@ export const AuthController = {
         } catch (err) {
             return c.json({ error: "Internal server error" }, 500);
         }
-    },
+    }
 
-    changePassword: async (c: Context) => {
+    static async changePassword(c: Context) {
         try {
             const user = c.get("user");
             const body = await c.req.json();
@@ -124,5 +124,5 @@ export const AuthController = {
         } catch (err) {
             return c.json({ error: "Internal server error" }, 500);
         }
-    },
-};
+    }
+}

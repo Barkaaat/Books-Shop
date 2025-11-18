@@ -2,8 +2,8 @@ import type { Context } from 'hono'
 import { UserService } from './user.service.js'
 import { updateUserSchema } from './user.schema.js';
 
-export const UserController = {
-    getUser: async (c: Context) => {
+export class UserController {
+    static async getUser(c: Context) {
         try {
             const id = c.get("user").id;
 
@@ -18,9 +18,9 @@ export const UserController = {
             console.error(err);
             return c.json({ error: "Internal server error" }, 500);
         }
-    },
+    }
 
-    updateUser: async (c: Context) => {
+    static async updateUser(c: Context) {
         try {
             const body = await c.req.json();
             const id = c.get("user").id;
