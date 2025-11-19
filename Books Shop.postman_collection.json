@@ -1,0 +1,1099 @@
+{
+	"info": {
+		"_postman_id": "067f5aeb-f6f8-4702-b275-9e018b5e8c43",
+		"name": "Books Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32969593"
+	},
+	"item": [
+		{
+			"name": "Authntication",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"john123\",\n  \"email\": \"john@example.com\",\n  \"password\": \"12345678\",\n  \"fullName\": \"John Doe\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "http://localhost:3000/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usernameOrEmail\": \"john@example.com\",\n  \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "http://localhost:3000/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiam9objEyMyIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzMwNzk2OCwiZXhwIjoxNzYzOTEyNzY4fQ.EWjkWzestNd07x3zzIj8LS3QRuvS4NnHIVLevP75AmE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3000/auth/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2MTFhOTIyLTU5MzctNDg2NC05MzJlLWJmMjFlMjI5MTI4YSIsInVzZXJuYW1lIjoiam9objEyMyIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzI5OTk5NywiZXhwIjoxNzYzOTA0Nzk3fQ._h78k2qv2bJ7fo9Y2XFgnk5pGsl_pcHPwwMJxewZW68"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"john@example.com\"}"
+						},
+						"url": "http://localhost:3000/auth/forget-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2MTFhOTIyLTU5MzctNDg2NC05MzJlLWJmMjFlMjI5MTI4YSIsInVzZXJuYW1lIjoiam9objEyMyIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzI5OTk5NywiZXhwIjoxNzYzOTA0Nzk3fQ._h78k2qv2bJ7fo9Y2XFgnk5pGsl_pcHPwwMJxewZW68"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\",\n    \"otp\": \"123456\",\n    \"newPassword\": \"87654321\"\n}"
+						},
+						"url": "http://localhost:3000/auth/reset-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiam9objEyMyIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzMwODAyMiwiZXhwIjoxNzYzOTEyODIyfQ.-k94BqTp_uS3jsIY7sO8PGl-xrVbfn79uLy2dc66jrU"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"oldPassword\": \"87654321\",\n  \"newPassword\": \"JohnfsDoe\"\n}\n"
+						},
+						"url": "http://localhost:3000/auth/change-password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiam9objEyMyIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzMwODAyMiwiZXhwIjoxNzYzOTEyODIyfQ.-k94BqTp_uS3jsIY7sO8PGl-xrVbfn79uLy2dc66jrU"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3000/user/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiam9objEyMyIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzMwODAyMiwiZXhwIjoxNzYzOTEyODIyfQ.-k94BqTp_uS3jsIY7sO8PGl-xrVbfn79uLy2dc66jrU"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"John\",\n  \"email\": \"john@example.com\",\n  \"fullName\": \"John Doe\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/user/profile"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "All Books",
+					"item": [
+						{
+							"name": "all-basic",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:3000/book/all"
+							},
+							"response": []
+						},
+						{
+							"name": "all-pagination?page=1&limit=10",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?page=1&limit=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-search?search=hary",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?search=hary",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "hary"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-sort-title-asc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?sortBy=title&sort=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "title"
+										},
+										{
+											"key": "sort",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-sort-title-desc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?sortBy=title&sort=desc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "title"
+										},
+										{
+											"key": "sort",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-sort-price-asc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?sortBy=price&sort=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "price"
+										},
+										{
+											"key": "sort",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-sort-price-desc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?sortBy=price&sort=desc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "price"
+										},
+										{
+											"key": "sort",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-sort-createdAt-asc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?sortBy=createdAt&sort=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "sort",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-sort-createdAt-desc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?sortBy=createdAt&sort=desc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "sort",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-filter-category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?categoryId=b6c6214d-93c6-4d39-a3e2-3e8c72ef508f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "categoryId",
+											"value": "b6c6214d-93c6-4d39-a3e2-3e8c72ef508f"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-price-range?min=50&max=200",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?minPrice=50&maxPrice=200",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "minPrice",
+											"value": "50"
+										},
+										{
+											"key": "maxPrice",
+											"value": "200"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-filters+pagination+sort",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/book/all?page=1&limit=10&search=book&sortBy=title&sort=asc&categoryId=b6c6214d-93c6-4d39-a3e2-3e8c72ef508f&minPrice=20&maxPrice=300",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"book",
+										"all"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "book"
+										},
+										{
+											"key": "sortBy",
+											"value": "title"
+										},
+										{
+											"key": "sort",
+											"value": "asc"
+										},
+										{
+											"key": "categoryId",
+											"value": "b6c6214d-93c6-4d39-a3e2-3e8c72ef508f"
+										},
+										{
+											"key": "minPrice",
+											"value": "20"
+										},
+										{
+											"key": "maxPrice",
+											"value": "300"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "My Books",
+					"item": [
+						{
+							"name": "my-books-basic-pagination",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQ3MzU0OSwiZXhwIjoxNzY0MDc4MzQ5fQ.dOshHUKVgH7-Rfb94VWqPRsHD27W8r-4Y3Q_dOJEbv8"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?page=1&limit=10",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search-my-books-by-title",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?search=hary",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "hary"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sort-my-books-by-title-asc",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?sort=asc&sortBy=title",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "asc"
+										},
+										{
+											"key": "sortBy",
+											"value": "title"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sort-my-books-by-title-desc",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?sort=desc&sortBy=title",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "desc"
+										},
+										{
+											"key": "sortBy",
+											"value": "title"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sort-my-books-by-price-asc",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?sort=asc&sortBy=price",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "asc"
+										},
+										{
+											"key": "sortBy",
+											"value": "price"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sort-my-books-by-price-desc",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?sort=desc&sortBy=price",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "desc"
+										},
+										{
+											"key": "sortBy",
+											"value": "price"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter-my-books-by-category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?categoryId=b6c6214d-93c6-4d39-a3e2-3e8c72ef508f",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "categoryId",
+											"value": "b6c6214d-93c6-4d39-a3e2-3e8c72ef508f"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter-my-books-by-price-range",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?minPrice=50&maxPrice=200",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "minPrice",
+											"value": "50"
+										},
+										{
+											"key": "maxPrice",
+											"value": "200"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all-filters+pagination+sort",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <TOKEN>"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/book/my?page=1&limit=10&search=game&sort=asc&sortBy=title&categoryId=b6c6214d-93c6-4d39-a3e2-3e8c72ef508f&minPrice=10&maxPrice=300",
+									"host": [
+										"http://localhost:3000"
+									],
+									"path": [
+										"book",
+										"my"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "game"
+										},
+										{
+											"key": "sort",
+											"value": "asc"
+										},
+										{
+											"key": "sortBy",
+											"value": "title"
+										},
+										{
+											"key": "categoryId",
+											"value": "b6c6214d-93c6-4d39-a3e2-3e8c72ef508f"
+										},
+										{
+											"key": "minPrice",
+											"value": "10"
+										},
+										{
+											"key": "maxPrice",
+											"value": "300"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create-book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"hary\",\n  \"price\": 150,\n  \"categoryId\": \"b6c6214d-93c6-4d39-a3e2-3e8c72ef508f\"\n}"
+						},
+						"url": "http://localhost:3000/book"
+					},
+					"response": []
+				},
+				{
+					"name": "book-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>"
+							}
+						],
+						"url": "http://localhost:3000/book/f91bfef1-8429-4bd6-81cf-236066def28b"
+					},
+					"response": []
+				},
+				{
+					"name": "update-book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQwMjEwMywiZXhwIjoxNzY0MDA2OTAzfQ.nwcAj8fJjUOIizSg-2W_2iDRVGjUnlweGrELSHHZWGo"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Book Title\",\n  \"price\": 150,\n  \"thumbnail\": \"https://example.com/new-image.jpg\",\n  \"categoryId\": \"b6c6214d-93c6-4d39-a3e2-3e8c72ef508f\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/book/f91bfef1-8429-4bd6-81cf-236066def28b"
+					},
+					"response": []
+				},
+				{
+					"name": "delete-book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQxODc5OCwiZXhwIjoxNzY0MDIzNTk4fQ.oJw1D7qQSJdmxLsi8bJWQG5y9rk1iGfysXUinsxjGBE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Book Title\",\n  \"price\": 150,\n  \"thumbnail\": \"https://example.com/new-image.jpg\",\n  \"categoryId\": \"b6c6214d-93c6-4d39-a3e2-3e8c72ef508f\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/book/f91bfef1-8429-4bd6-81cf-236066def28b"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "get-tags",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MTdkNDdmLTg0MDktNDlmZS1hZTZmLTM5ZWQxOTA1NmEwNCIsInVzZXJuYW1lIjoiYTdhYSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQxODc5OCwiZXhwIjoxNzY0MDIzNTk4fQ.oJw1D7qQSJdmxLsi8bJWQG5y9rk1iGfysXUinsxjGBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3000/tags"
+					},
+					"response": []
+				},
+				{
+					"name": "create-tag",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Fantasy\"\n}"
+						},
+						"url": "http://localhost:3000/tags"
+					},
+					"response": []
+				},
+				{
+					"name": "get-tag-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/tags/0b1865a8-f144-4f63-8559-7dd29ec6268c"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category\": \"Fiction\"\n}"
+						},
+						"url": "http://localhost:3000/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/categories/d7a26a57-c8e6-4307-9d62-f524cf93a7fb"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
