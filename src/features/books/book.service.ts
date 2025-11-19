@@ -79,7 +79,7 @@ export class BookService {
             title: books.title,
             price: books.price,
             thumbnail: books.thumbnail,
-            craeteAt: books.createdAt,
+            craetedAt: books.createdAt,
             updatedAt: books.updatedAt,
 
             // Author
@@ -162,7 +162,7 @@ export class BookService {
             title: books.title,
             price: books.price,
             thumbnail: books.thumbnail,
-            craeteAt: books.createdAt,
+            craetedAt: books.createdAt,
             updatedAt: books.updatedAt,
 
             // Author
